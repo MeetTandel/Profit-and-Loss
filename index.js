@@ -30,10 +30,9 @@ priceButton.addEventListener("click", async () => {
   try {
     let response = await fetch(SERVER_URL);
     let data = await response.json();
-    let firstKey = Object.keys(data)[1];
-    let firstDate = Object.keys(data[firstKey])[0];
+    let firstDate = Object.keys(data["Time Series (Daily)"])[0];
     date = firstDate.split("-");
-    price = Number(data[firstKey][firstDate]["1. open"]);
+    price = Number(data["Time Series (Daily)"][firstDate]["1. open"]);
     priceContainer.innerHTML = `<p>Current Price as of ${months[date[1] - 1]} ${
       date[2]
     } is <span>${price}</span45a52f></p>`;
@@ -44,13 +43,16 @@ priceButton.addEventListener("click", async () => {
 });
 
 submitButton.addEventListener("click", () => {
-  console.log(price);
-
   const initialPrice = Number(input[0].value);
   const quantity = Number(input[1].value);
   const currentPrice = Number(input[2].value) | price;
 
-  calculateProfitAndLoss(initialPrice, quantity, currentPrice);
+  if (initialPrice > 0 && quantity > 0 && currentPrice > 0) {
+    calculateProfitAndLoss(initialPrice, quantity, currentPrice);
+  } else {
+    outputContainer.innerHTML = `Please Enter positive values.`;
+    gifContainer.innerHTML = "";
+  }
 });
 
 function calculateProfitAndLoss(initial, quantity, current) {
@@ -91,3 +93,4 @@ function showOutput(message, value, percentValue, color) {
   )}</span> and the percent is <span>${percentValue.toFixed(2)}%</span></p>`;
   spanColor.style.color = color;
 }
+
