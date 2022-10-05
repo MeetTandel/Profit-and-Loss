@@ -2,7 +2,7 @@
 
 Profit and Loss will give you stock profit or loss based on the Current Price. Moreover, you can also know your Tesla stock at the current time.
 
-#### Live Project [https://lsu39.csb.app/](https://lsu39.csb.app/)
+#### Live Project [https://profit-and-loss-meet.netlify.app/](https://profit-and-loss-meet.netlify.app/)
 
 ## How to Use
 
