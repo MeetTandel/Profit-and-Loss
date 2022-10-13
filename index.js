@@ -1,6 +1,6 @@
 const input = document.querySelectorAll("input");
 const submitButton = document.querySelector("#submit-btn");
-const priceButton = document.querySelector(".current-price");
+// const priceButton = document.querySelector(".current-price");
 const priceContainer = document.querySelector(".show-current-price");
 const outputContainer = document.querySelector(".output");
 const gifContainer = document.querySelector("#gif-container");
@@ -24,23 +24,6 @@ const months = [
 ];
 let price;
 let date;
-
-priceButton.addEventListener("click", async () => {
-  input[2].style.display = "none";
-  try {
-    let response = await fetch(SERVER_URL);
-    let data = await response.json();
-    let firstDate = Object.keys(data["Time Series (Daily)"])[0];
-    date = firstDate.split("-");
-    price = Number(data["Time Series (Daily)"][firstDate]["1. open"]);
-    priceContainer.innerHTML = `<p>Current Price as of ${months[date[1] - 1]} ${
-      date[2]
-    } is <span>${price}</span45a52f></p>`;
-    return price;
-  } catch (err) {
-    console.log(err);
-  }
-});
 
 submitButton.addEventListener("click", () => {
   const initialPrice = Number(input[0].value);
@@ -74,7 +57,9 @@ function calculateProfitAndLoss(initial, quantity, current) {
       "https://giphy.com/embed/26tPplGWjN0xLybiU"
     );
   } else {
-    showOutput(`<p>Neither safe nor secure</p>`);
+    outputContainer.innerHTML = "Neither safe nor secure";
+    spanColor.style.color = "white";
+    gifContainer.innerHTML = ""
   }
 }
 
@@ -94,3 +79,19 @@ function showOutput(message, value, percentValue, color) {
   spanColor.style.color = color;
 }
 
+// priceButton.addEventListener("click", async () => {
+//   input[2].style.display = "none";
+//   try {
+//     let response = await fetch(SERVER_URL);
+//     let data = await response.json();
+//     let firstDate = Object.keys(data["Time Series (Daily)"])[0];
+//     date = firstDate.split("-");
+//     price = Number(data["Time Series (Daily)"][firstDate]["1. open"]);
+//     priceContainer.innerHTML = `<p>Current Price as of ${months[date[1] - 1]} ${
+//       date[2]
+//     } is <span>${price}</span45a52f></p>`;
+//     return price;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
